@@ -1,0 +1,27 @@
+{
+  "name": "test-tutu",
+  "version": "1.0.0",
+  "description": "Тестовое задание Tutu",
+  "main": "index.js",
+  "scripts": {
+    "test": "SET NODE_ENV=test && node ./node_modules/mocha/bin/mocha --timeout 5000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/guest363/test-tutu.git"
+  },
+  "keywords": [
+    "test",
+    "js"
+  ],
+  "author": "Oleg Moiseev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/guest363/test-tutu/issues"
+  },
+  "homepage": "https://github.com/guest363/test-tutu#readme",
+  "dependencies": {
+    "chai": "^4.2.0",
+    "mocha": "^7.1.0"
+  }
+}
