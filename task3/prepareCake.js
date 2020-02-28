@@ -4,6 +4,11 @@
  * @param {Number} num - сколько нужно пожарить блинов
  * @returns {Number} время в минутах
  * */
+
+/* Можно решить математически N число сковородок
+P число блинов. Тогда время приготовление
+T = P % N === 0 ? P × 2 / N : Math.floor(P / N) × 2 + 1
+*/
 class CAKE {
   constructor(position, link) {
     position: this.position;
