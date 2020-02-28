@@ -5,6 +5,7 @@
  * @param {String} str - строка в котрой искать
  * @param {String} s1 - первый символ для поиска
  * @param {String} s2 -второй символ для поиска
+ * @returns {Number}
  * */
 
 const dscount = (str = '', s1 = '', s2 = '') => {
