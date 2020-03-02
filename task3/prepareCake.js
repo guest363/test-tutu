@@ -1,39 +1,15 @@
 'use strict';
 /**
- * Запекает N блинчика оптимально на 2 сковородах
- * @param {Number} num - сколько нужно пожарить блинов
+ * Запекает N блинчика оптимально на P сковородах
+ * @param {Number} numCakes - сколько нужно пожарить блинов
+ * @param {Number} numPans - сколько есть сковородок
  * @returns {Number} время в минутах
  * */
 
-/* Можно решить математически N число сковородок
-P число блинов. Тогда время приготовление
-T = P % N === 0 ? P × 2 / N : Math.floor(P / N) × 2 + 1
-*/
-class CAKE {
-  constructor(position, link) {
-    position: this.position;
-    link: this.link
-    sideA: false;
-    sideB: false;
-  }
-  cook() {
-    console.log(this)
-    this.sideA !== true ? (this.sideA = true) : (this.sideB = true);
-    if (this.sideA === true && this.sideB === true) this.link.delete(this.position);
-  }
-}
-const PANS = [0, 0];
-
-const prepareCake = (num) => {
-  if (num < 1) return 0;
-  const pancakes = new Map();
-  for (let i = 0; i < num; i++) {
-    pancakes.set(i, new CAKE(i, pancakes));
-  }
-  console.log(pancakes);
-  pancakes.get(0).cook();
-  pancakes.get(0).cook();
-  console.log(pancakes);
+const prepareCake = (numCakes = 3, numPans = 2) => {
+  return numCakes % numPans === 0
+    ? Math.floor(numCakes / numPans) * 2
+    : Math.floor(numCakes / numPans) * 2 + 1;
 };
 
 module.exports = prepareCake;
