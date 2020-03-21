@@ -1,19 +1,22 @@
-'use strict';
+"use strict";
+const STATES = [
+  [20, "★☆☆☆☆"],
+  [40, "★★☆☆☆"],
+  [60, "★★★☆☆"],
+  [80, "★★★★☆"],
+  [100, "★★★★★"]
+];
+
 /**
- *
+ * Рисует рейтинг
+ * @param {String} vote число от 0 до 100
+ * @returns {String} графическое представление рейтинга. Звезды.
  * */
 
-const drawRating = (vote) => {
-  const states = [20, 40, 60, 80, 100];
-  const stars = {
-    1: '★☆☆☆☆',
-    2: '★★☆☆☆',
-    3: '★★★☆☆',
-    4: '★★★★☆',
-    5: '★★★★★',
-  };
-  for (let block of states) {
-    if (vote <= block) return stars[states.indexOf(block) + 1];
+const drawRating = vote => {
+  if (vote < 0 || vote > 100) return "Рейтинг должен быть в диапозоне 0 - 100";
+  for (let state of STATES) {
+    if (Number(vote) <= state[0]) return state[1];
   }
 };
 
