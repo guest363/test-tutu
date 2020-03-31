@@ -1,10 +1,15 @@
-const URL = `http://www.filltext.com/?rows=32&id={number|1000}&firstName={firstName}&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&adress={addressObject}&description={lorem|32}`;
+const URL = `http://www.filltext.com/?rows=1000&id={number|1000}&firstName={firstName}&delay=3&lastName={lastName}&email={email}&phone={phone|(xxx)xxx-xx-xx}&adress={addressObject}&description={lorem|32}`;
 const ID_TABLE_HEADER = `tutu--table--head`;
 const ID_TABLE_CONTENT = `tutu--table--content`;
 const ID_DESCRIPTION = "tutu--table--description";
 const ID_TUTU = "tutu";
 const ID_LOADER = "loader";
+const ID_SEARCH_INPUT = "tutu--search--input";
+const ID_SEARCH_BUTTON = "tutu--search--button";
+const ID_NAV = "tutu--nav";
 
+let currentPage = 0;
+let currentTable;
 let bigTable = [],
   smallTable = [],
   indexOfTables = {};
@@ -76,12 +81,21 @@ const setThSorter = id => {
       element.classList.toggle("up");
       element.classList.toggle("down");
     }
-    smallTable = sorter(smallTable, feild);
+    currentTable = sorter(currentTable, feild);
     savedElem = element;
-    drawTable(smallTable);
+
+    drawTable(chunker(currentTable, currentPage));
   };
 };
 
+const filterTable = text => {
+  if (text === "") return smallTable;
+  const filtredTable = smallTable.filter(item => {
+    const values = Object.values(item).join("");
+    return values.indexOf(text) === -1 ? false : true;
+  });
+  return filtredTable;
+};
 const fetchData = async url => {
   if (window.Worker) {
     const downloader = new Worker("fetch.js");
@@ -97,17 +111,63 @@ const fetchData = async url => {
   }
 };
 
+/**
+ * Бьет таблицу на куски
+ * @param {Array} usbArray массив который нужно разбить
+ * @param {Number} chunkNumber номер куска для отправки
+ * @returns {Object} { chunk: Array, pages: Number }
+ */
+const chunker = (arrToChank, chunkNumber = 0) => {
+  const chunks = [];
+  const maxElementsOnPage = 50;
+  const elementsCount = arrToChank.length;
+  const pages = Math.ceil(elementsCount / maxElementsOnPage);
+  for (let i = 0; i < pages; i++) {
+    let elemChunck;
+    if (i === 0) {
+      elemChunck = [...arrToChank.slice(0, maxElementsOnPage)];
+    } else {
+      elemChunck = [
+        ...arrToChank.slice(i * maxElementsOnPage, (i + 1) * maxElementsOnPage)
+      ];
+    }
+    chunks.push(elemChunck);
+  }
+  const nav = document.getElementById(ID_NAV);
+  const fragment = new DocumentFragment();
+  for (let i = 0; i < pages; i++) {
+    const page = document.createElement("span");
+    page.innerHTML = i;
+    page.classList.add("tutu--nav--page");
+    if (i === Number(chunkNumber))
+      page.classList.add("tutu--nav--page__active");
+    page.addEventListener("click", event => {
+      currentPage = event.target.innerHTML;
+      drawTable(chunker(currentTable, currentPage));
+    });
+    fragment.append(page);
+  }
+  nav.innerHTML = "";
+  nav.append(fragment);
+  return chunks[chunkNumber];
+};
+
 (async () => {
   bigTable = [...(await fetchData(URL))];
   bigTable.forEach((obj, index) => {
     smallTable.push(excluder(obj));
     indexOfTables[obj.id] = index;
   });
-  drawTable(smallTable);
+  currentTable = smallTable;
+  drawTable(chunker(smallTable));
   document.getElementById(ID_TUTU).classList.remove("hide");
   document.getElementById(ID_LOADER).classList.add("hide");
   setThSorter(ID_TABLE_HEADER);
-
+  document.getElementById(ID_SEARCH_BUTTON).addEventListener("click", () => {
+    const inputText = document.getElementById(ID_SEARCH_INPUT).value;
+    currentTable = filterTable(inputText);
+    drawTable(chunker(currentTable, currentPage));
+  });
   document.addEventListener(
     "click",
     event => {
