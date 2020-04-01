@@ -13,33 +13,35 @@
 
     <h2>Построение таблицы из полученных данных</h2>
 
-    <div id="loader">
-      <div class="spiner"></div>
-      <h4>Загрузка данных...</h4>
-    </div>
-
-    <div id="tutu" class="grid--2 hide">
-      <div class="tutu--search">
-        <input type="text" name="" id="tutu--search--input" />
-        <button id="tutu--search--button">Поиск</button>
+    <div id="table-component">
+      <div id="loader">
+        <div class="spiner"></div>
+        <h4>Загрузка данных...</h4>
       </div>
-      <div id="tutu--nav">
 
+      <div id="tutu" class="grid--2 hide">
+        <div class="tutu--search">
+          <input type="text" name="" id="tutu--search--input" />
+          <button id="tutu--search--button">Поиск</button>
+        </div>
+        <div id="tutu--nav"></div>
+        <div id="tutu--nav--counter"></div>
+        <table class="tutu--table">
+          <thead>
+            <tr id="tutu--table--head">
+              <th class="arrow" data-feild="id">ID</th>
+              <th class="arrow" data-feild="firstName">Имя</th>
+              <th class="arrow" data-feild="lastName">Фамилия</th>
+              <th class="arrow" data-feild="email">Почта</th>
+              <th class="arrow" data-feild="phone">Телефон</th>
+            </tr>
+          </thead>
+          <tbody id="tutu--table--content"></tbody>
+        </table>
+        <div id="tutu--table--description" class="hide"></div>
       </div>
-      <table class="tutu--table">
-        <thead>
-          <tr id="tutu--table--head">
-            <th class="arrow" data-feild="id">ID</th>
-            <th class="arrow" data-feild="firstName">Имя</th>
-            <th class="arrow" data-feild="lastName">Фамилия</th>
-            <th class="arrow" data-feild="email">Почта</th>
-            <th class="arrow" data-feild="phone">Телефон</th>
-          </tr>
-        </thead>
-        <tbody id="tutu--table--content"></tbody>
-      </table>
-      <div id="tutu--table--description" class="hide"></div>
+      `;
     </div>
-    <script type="text/javascript" src="main.js"></script>
+    <script type="module" src="main.js"></script>
   </body>
 </html>

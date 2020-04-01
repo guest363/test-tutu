@@ -54,7 +54,7 @@ h2 {
 .tutu--table {
   border-collapse: collapse;
   text-align: left;
-  width: max-content;
+  width: 100%;
   grid-area: table;
 }
 .tutu--search {
@@ -64,21 +64,21 @@ h2 {
   justify-content: space-between;
 }
 #tutu--nav {
-    grid-area: tutu-nav;
-    height: 30px;
-    display: flex;
-    align-items: center;
+  grid-area: tutu--nav;
+  height: 30px;
+  display: flex;
+  align-items: center;
 }
 .tutu--nav--page {
-    padding: 10px 7px;
-    font-size: 20px;
-    cursor: pointer;
+  padding: 10px 7px;
+  font-size: 20px;
+  cursor: pointer;
 }
 .tutu--nav--page__active {
-    padding: 10px 7px;
-    font-size: 26px;
-    font-weight: bold;
-    cursor: pointer;
+  padding: 10px 7px;
+  font-size: 26px;
+  font-weight: bold;
+  cursor: pointer;
 }
 button {
   border: solid 1px var(--button-border-color);
@@ -141,6 +141,14 @@ td {
   color: var(--white);
 }
 
+#tutu--nav--counter {
+  grid-area: tutu--nav--counter;
+  display: flex;
+  align-items: center;
+}
+.tutu--nav--counter--span{
+
+}
 @media only screen and (min-width: 960px) {
   .grid--2 {
     display: grid;
@@ -149,7 +157,7 @@ td {
     grid-template-columns: max-content 350px;
     grid-template-areas:
       "search ."
-      "tutu-nav ."
+      "tutu--nav tutu--nav--counter"
       "table description";
   }
   #tutu--table--description {
