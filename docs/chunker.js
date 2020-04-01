@@ -1,10 +1,9 @@
-import { ID_NAV, ID_NAV_COUNTER } from "./constants.js";
+import { ID_NAV, ID_NAV_COUNTER, MAX_ELEMENT_ON_PAGE } from "./constants.js";
 import { reDrawTable } from "./table.js";
 
 let currentPage;
 const nav = document.getElementById(ID_NAV);
 const navCounter = document.getElementById(ID_NAV_COUNTER);
-const maxElementsOnPage = 50;
 
 /**
  * Рисует счетчик
@@ -40,25 +39,20 @@ const createPagination = (pages, chunkNumber) => {
  * Бьет таблицу на куски и формирует пагинвцию
  * @param {Array} arrToChank массив который нужно разбить
  * @param {Number} chunkNumber номер куска для отправки
- * @returns {Array} массиы из N элементов
+ * @returns {Object} {chunks, page} возвращает текущий чанк и номер
+ * страницы.
  */
 export const chunker = (arrToChank, chunkNumber = 0) => {
   const chunks = [];
   const elementsCount = arrToChank.length;
-  const pages = Math.ceil(elementsCount / maxElementsOnPage);
+  const pages = Math.ceil(elementsCount / MAX_ELEMENT_ON_PAGE);
   for (let i = 0; i < pages; i++) {
-    let elemChunck;
-    if (i === 0) {
-      elemChunck = [...arrToChank.slice(0, maxElementsOnPage)];
-    } else {
-      elemChunck = [
-        ...arrToChank.slice(i * maxElementsOnPage, (i + 1) * maxElementsOnPage)
-      ];
-    }
-    chunks.push(elemChunck);
+    chunks.push(
+      arrToChank.slice(i * MAX_ELEMENT_ON_PAGE, (i + 1) * MAX_ELEMENT_ON_PAGE)
+    );
   }
   createPagination(pages, chunkNumber);
   createCounter(elementsCount);
 
-  return { chunk: chunks[chunkNumber], page: currentPage };
+  return chunks[chunkNumber];
 };

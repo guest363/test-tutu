@@ -15,6 +15,8 @@ import { excluder } from "./support.js";
 import { hideLoader } from "./loader.js";
 import { chunker } from "./chunker.js";
 
+const TABLE = document.getElementById(ID_TABLE_CONTENT);
+
 let currentPage = 0;
 let currentTable;
 let bigTable = [],
@@ -22,9 +24,8 @@ let bigTable = [],
   indexOfTables = {};
 
 export const reDrawTable = selectPage => {
-  let { chunk, page } = chunker(currentTable, selectPage);
-  currentPage = page;
-  drawTable(chunk || []);
+  currentPage = selectPage;
+  drawTable(chunker(currentTable, selectPage) || []);
 };
 /**
  * Рисует таблицу по переданным данным и навешивает обработчики.
@@ -49,9 +50,8 @@ export const drawTable = data => {
     fragment.append(rowFragment);
   });
 
-  const table = document.getElementById(ID_TABLE_CONTENT);
-  table.innerHTML = "";
-  table.append(fragment);
+  TABLE.innerHTML = "";
+  TABLE.append(fragment);
 };
 
 /**
@@ -105,8 +105,6 @@ const setThSorter = id => {
 
   th.onclick = event => {
     const element = event.target;
-    console.log(element);
-    console.log(savedElem);
     const feild = element.dataset.feild;
     if (savedElem === "") {
       element.classList.add("down");
@@ -164,7 +162,7 @@ const initFilter = () => {
  *  */
 export const createTableComponent = async () => {
   await initData();
-  drawTable(chunker(currentTable).chunk);
+  drawTable(chunker(currentTable));
   hideLoader(ID_TUTU, ID_LOADER);
   makeDescriptionHideble();
   setThSorter(ID_TABLE_HEADER);

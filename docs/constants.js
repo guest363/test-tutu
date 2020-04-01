@@ -8,3 +8,4 @@ export const ID_SEARCH_INPUT = "tutu--search--input";
 export const ID_SEARCH_BUTTON = "tutu--search--button";
 export const ID_NAV = "tutu--nav";
 export const ID_NAV_COUNTER = "tutu--nav--counter";
+export const MAX_ELEMENT_ON_PAGE = 50;

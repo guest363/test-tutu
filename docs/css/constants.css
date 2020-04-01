@@ -1,0 +1,19 @@
+:root {
+  --card-bg-color: #f8f9f9;
+  --card-border: 2px solid #afd1fa;
+
+  --button-active-color: #afd1fa;
+
+  --button-border-color: #cccccc;
+  --allert: #d46c6c;
+  --input--border: rgb(209, 209, 209);
+  --white: #ffffff;
+  --light-grey: #e5e5e5;
+  --tr-odd-color: #f0f4f8;
+  --table-bg-header: #0073ff;
+
+  --table--padding--row: 7px 25px;
+  --table--padding--head: 13px 25px;
+  --button--width: 100px;
+  --border-radius: 5px;
+}

@@ -1,0 +1,21 @@
+h2 {
+  text-align: center;
+}
+input {
+  border-radius: var(--border-radius);
+}
+body {
+  font-size: calc(12px + (22 - 12) * ((100vw - 300px) / (2560 - 300)));
+}
+button {
+  border: solid 1px var(--button-border-color);
+  background: var(--white);
+  outline: none;
+  cursor: pointer;
+  padding: 5px 20px;
+  width: var(--button--width);
+  border-radius: var(--border-radius);
+}
+button:active {
+  background: var(--button-active-color);
+}
