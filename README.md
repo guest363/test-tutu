@@ -230,3 +230,6 @@ const parceUrl = url => {
 
 module.exports = parceUrl;
 ```
+
+## Задача 6
+## [Demo](https://guest363.github.io/test-tutu/)
