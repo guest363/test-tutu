@@ -6,7 +6,9 @@ import {
   ID_TUTU,
   ID_LOADER,
   ID_SEARCH_INPUT,
-  ID_SEARCH_BUTTON
+  ID_SEARCH_BUTTON,
+  TABLE_HEADER_ELEMENTS,
+  ID_SEARCHE_COLUM_SELCTOR
 } from "./constants.js";
 
 import { drawDescription } from "./description.js";
@@ -96,10 +98,9 @@ const sorterUPAndDown = () => {
  * Навешивает обрабочки фильрации по клику на шапку таблицы и рисует
  * стрелки показывающие способ сортировки. Вызывает перерисовку таблицы,
  * при этом сохраняется позиция выбранная в навигации
- * @param {String} id шапки таблицы для навешивания обрабочиков
+ * @param {Object} th ячейка шапки
  *  */
-const setThSorter = id => {
-  const th = document.getElementById(id);
+const setThSorter = th => {
   const sorter = sorterUPAndDown();
   let savedElem = "";
 
@@ -148,6 +149,7 @@ const makeDescriptionHideble = () => {
 };
 /**
  * Навешивает обработчик на кнопку поиска по таблице (фильрация)
+ * Обращается к глобальной переменной currentPage для перерисоки таблицы
  *  */
 const initFilter = () => {
   document.getElementById(ID_SEARCH_BUTTON).addEventListener("click", () => {
@@ -155,6 +157,54 @@ const initFilter = () => {
     currentTable = filterTable(inputText) || [];
     reDrawTable(currentPage);
   });
+};
+/**
+ * Рисует шапку и навешивает обработчики
+ * @param {String} idElemet id шапки
+ * @param {String} thElementList список элементов в шапке таблицы
+ *  */
+const createTableHeader = (idElemet, thElementList) => {
+  const drawTarget = document.getElementById(idElemet);
+
+  const fragment = new DocumentFragment();
+  thElementList.forEach(th => {
+    const thFragment = document.createElement("th");
+    thFragment.classList.add("arrow");
+    const customAttr = document.createAttribute("data-feild");
+    customAttr.value = th[0]; // Set the value of the class attribute
+    thFragment.setAttributeNode(customAttr);
+    thFragment.innerHTML = th[1];
+    setThSorter(thFragment);
+    fragment.append(thFragment);
+  });
+
+  drawTarget.innerHTML = "";
+  drawTarget.append(fragment);
+};
+
+/**
+ * Рисует шапку и навешивает обработчики
+ * @param {String} idElemet id шапки
+ * @param {String} thElementList список элементов в шапке таблицы
+ *  */
+const createSearcheSelect = (idElemet, thElementList) => {
+  const drawTarget = document.getElementById(idElemet);
+
+  const fragment = new DocumentFragment();
+  thElementList.forEach(th => {
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("name", th[0]);
+    const label = document.createElement("label");
+    label.setAttribute("for", th[0]);
+    label.innerHTML = th[1];
+
+    fragment.append(checkbox);
+    fragment.append(label);
+  });
+
+  drawTarget.innerHTML = "";
+  drawTarget.append(fragment);
 };
 
 /**
@@ -165,6 +215,7 @@ export const createTableComponent = async () => {
   drawTable(chunker(currentTable));
   hideLoader(ID_TUTU, ID_LOADER);
   makeDescriptionHideble();
-  setThSorter(ID_TABLE_HEADER);
+  createTableHeader(ID_TABLE_HEADER, TABLE_HEADER_ELEMENTS);
   initFilter();
+  createSearcheSelect(ID_SEARCHE_COLUM_SELCTOR, TABLE_HEADER_ELEMENTS);
 };

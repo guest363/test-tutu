@@ -1,4 +1,4 @@
-import { ID_DESCRIPTION, ID_TUTU } from "./constants.js";
+import { ID_DESCRIPTION } from "./constants.js";
 
 const descriptionFormatter = obj => {
   return `

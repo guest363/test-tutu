@@ -1,6 +1,7 @@
 #loader {
   margin: 0 auto;
   width: min-content;
+  text-align: center;
 }
 .spiner {
   border: 16px solid var(--tr-odd-color);
