@@ -61,6 +61,14 @@ export const drawTable = data => {
   TABLE.append(fragment);
 };
 
+export const drawError = () => {
+  const fragment = new DocumentFragment();
+  const h2 = document.createElement("h2");
+  h2.innerHTML = "Ошибка загрузки данных.";
+  fragment.append(h2);
+  TABLE.innerHTML = "";
+  TABLE.append(fragment);
+};
 /**
  * Инициализирует начальные переменные с данными
  *  */
@@ -78,6 +86,9 @@ const initData = async () => {
  *  */
 export const createTableComponent = async () => {
   await initData();
+  if (Object.keys(store.bigTable).length == 0) {
+    return drawError();
+  }
   drawTable(chunker(store.currentTable));
   hideLoader(ID_TUTU, ID_LOADER);
   createTableHeader(ID_TABLE_HEADER, TABLE_HEADER_ELEMENTS);
