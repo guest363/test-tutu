@@ -21,3 +21,4 @@ export const TABLE_HEADER_ELEMENTS = [
   ["email", "Почта"],
   ["phone", "Телефон"]
 ];
+export const EXCLUD_COL_FROM_DOM = ['adress', 'description'];

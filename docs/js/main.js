@@ -1,4 +1,4 @@
 "use strict";
-import { createTableComponent } from "./table.js";
+import { createTableComponent } from "./createTableComponent.js";
 
 createTableComponent();
