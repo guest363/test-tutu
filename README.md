@@ -246,4 +246,4 @@ module.exports = parceUrl;
 
 Используется стороняя библиотека lodash. А именно функции omit и pick.
 Для закачки данных используется fetch запускаемый в вебворкере.
-![Превью](https://guest363.github.io/test-tutu/task7_priview.jpg)
+![Превью](https://github.com/guest363/test-tutu/blob/master/docs/task7_preview.jpg)
